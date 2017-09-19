@@ -8,6 +8,7 @@ import be.pxl.computerstore.hardware.Keyboard;
 import be.pxl.computerstore.hardware.KeyboardLayout;
 import be.pxl.computerstore.hardware.Monitor;
 import be.pxl.computerstore.hardware.Mouse;
+import be.pxl.computerstore.hardware.Peripheral;
 import be.pxl.computerstore.hardware.Processor;
 import be.pxl.computerstore.hardware.WebCam;
 import be.pxl.computerstore.util.Dimension;
@@ -15,7 +16,6 @@ import be.pxl.computerstore.util.Dimension;
 public class Warehouse {
 	
 	public static ComputerComponent[] computerComponents;
-	
 	
 	static {
 		ComputerCase computerCase1 = new ComputerCase("Aerocool", "CS-102 Midi-Toren zwart", 24.70);
@@ -55,5 +55,29 @@ public class Warehouse {
 		computerComponents = new ComputerComponent[] { computerCase1, computerCase2, computerCase3, hd1, hd2, hd3, processor1,
 				processor2, azerty, azerty2, qwerty, mouse1, mouse2, webcam1, monitor, monitor2, controller1,
 				controller2 };
+	}
+	
+	public void displayProcessors() {
+		for(ComputerComponent component: computerComponents){
+			if(component instanceof Processor){
+				System.out.println(component.getShortDescription());
+			}
+		}
+	}
+	
+	public void displayComputerCases() {
+		for(ComputerComponent component: computerComponents){
+			if(component instanceof ComputerCase){
+				System.out.println(component.getShortDescription());
+			}
+		}
+	}
+	
+	public void displayPeripherals() {
+		for(ComputerComponent component: computerComponents){
+			if(component instanceof Peripheral){
+				System.out.println(component.getShortDescription());
+			}
+		}
 	}
 }

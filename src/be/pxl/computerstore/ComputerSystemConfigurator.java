@@ -35,19 +35,25 @@ public class ComputerSystemConfigurator {
 			}
 		}
 		boolean choosePeripheral = true;
-
-		do {
-			System.out.println("Kies een randapparaat (geef artikelnummer): ");
-			displayPeripherals();
-			String artikelnummer = keyboard.nextLine();
-			ComputerComponent chosen = getComputerComponent(artikelnummer);
-			if (chosen instanceof Peripheral) {
-				computerSystem.addPeripheral((Peripheral) chosen);
-			}
-			System.out.println("Wil u nog een randaparaat toevoegen (j/n)?");
-			choosePeripheral = keyboard.nextLine().equals("j");
-		} while(choosePeripheral);
-		// TODO catch TooManyPeripheralsException
+		try {
+			do {
+				System.out.println("Kies een randapparaat (geef artikelnummer): ");
+				displayPeripherals();
+				String artikelnummer = keyboard.nextLine();
+				ComputerComponent chosen = getComputerComponent(artikelnummer);
+				if (chosen instanceof Peripheral) {
+					computerSystem.addPeripheral((Peripheral) chosen);
+				}
+				if(computerSystem.getNumberOfPeripherals() < 3){
+					System.out.println("Wil u nog een randaparaat toevoegen (j/n)?");
+				} else {
+					break;
+				}
+				choosePeripheral = keyboard.nextLine().equals("j");
+			} while (choosePeripheral && computerSystem.getNumberOfPeripherals() < 3);
+		} catch (TooManyPeripheralsException tooManyPeripheralsException) {
+			System.out.println("U kunt niet meer als 3 randapparaten toevoegen.");
+		}
 		System.out.println("De door u gekozen computer:");
 		System.out.println(computerSystem);
 		keyboard.close();
@@ -60,7 +66,7 @@ public class ComputerSystemConfigurator {
 			}
 		}
 	}
-	
+
 	public static void displayProcessors() {
 		for (ComputerComponent component : Warehouse.computerComponents) {
 			if (component instanceof Processor) {
@@ -68,7 +74,7 @@ public class ComputerSystemConfigurator {
 			}
 		}
 	}
-	
+
 	public static void displayPeripherals() {
 		for (ComputerComponent component : Warehouse.computerComponents) {
 			if (component instanceof Peripheral) {
@@ -86,5 +92,4 @@ public class ComputerSystemConfigurator {
 		return null;
 	}
 
-	
 }
