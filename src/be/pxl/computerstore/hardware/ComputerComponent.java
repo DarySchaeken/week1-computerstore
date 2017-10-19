@@ -17,8 +17,6 @@ public abstract class ComputerComponent {
 		this.price = price;
 
 		articleNumber = generateArticleNumber();
-		baseArticleNumber++;
-
 	}
 
 	private String generateArticleNumber() {
@@ -29,16 +27,16 @@ public abstract class ComputerComponent {
 		}
 		articleNumber.append(vendor.substring(0, 3));
 		articleNumber.append('-');
-		StringBuilder baseArticleNumber = new StringBuilder(Integer.toString(ComputerComponent.baseArticleNumber));
-		while (baseArticleNumber.length() < 5) {
-			baseArticleNumber.insert(0, '0');
-		}
-		articleNumber.append(baseArticleNumber);
+			
+		articleNumber.append(String.format("00000", baseArticleNumber));
+		ComputerComponent.baseArticleNumber++;
+		
 		articleNumber.append('-');
+		
 		for (int i = 0; i < 3; i++) {
 			articleNumber.append(ramdomArticleNumberGenerator.nextInt(9) + 1);
 		}
-
+		
 		return articleNumber.toString();
 	}
 

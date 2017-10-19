@@ -33,6 +33,7 @@ public class ComputerSystemConfigurator {
 			if (chosen instanceof Processor) {
 				computerSystem.setProcessor((Processor) chosen);
 			}
+			
 		}
 		boolean choosePeripheral = true;
 		try {
